@@ -6,14 +6,14 @@
 #    By: clouden <clouden@student.42madrid.com      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:32:06 by clouden           #+#    #+#              #
-#    Updated: 2025/06/30 19:42:56 by clouden          ###   ########.fr        #
+#    Updated: 2025/07/01 14:45:59 by clouden          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 # Complier and flags
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3
 
 # Name of the output static library
 NAME	= libftprintf.a
@@ -28,7 +28,7 @@ LIBFT 		= $(LIBFT_DIR)/libft.a
 INCLUDES 	= -I$(LIBFT_DIR)
 
 # Test file
-TEST_SRC = test.c
+TEST_SRC = .test.c
 TEST_OBJ = $(TEST_SRC:.c=.o)
 TEST_BIN = test_printf
 
