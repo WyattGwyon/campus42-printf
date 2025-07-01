@@ -6,7 +6,7 @@
 #    By: clouden <clouden@student.42madrid.com      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:32:06 by clouden           #+#    #+#              #
-#    Updated: 2025/07/01 14:45:59 by clouden          ###   ########.fr        #
+#    Updated: 2025/07/01 20:21:36 by clouden          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,8 @@ clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 # Clean object files and library
-fclean: clean
-	rm -f $(NAME) $(TEST_BIN)
+fclean:
+	rm -f $(OBJS) $(TEST_OBJ) $(NAME) $(TEST_BIN)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 # Rebuild
