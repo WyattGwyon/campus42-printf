@@ -6,7 +6,7 @@
 /*   By: clouden <clouden@student.42madrid.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:54:33 by clouden           #+#    #+#             */
-/*   Updated: 2025/07/01 15:14:39 by clouden          ###   ########.fr       */
+/*   Updated: 2025/07/01 16:11:10 by clouden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_printf(const char *fmt, ...)
 		{
 			d = va_arg(args, int);
 			ft_putnbr_fd(d, 1);
-		}		
+		}
 		c = ft_strchr(c + 1, '%');
 	}
 /*
