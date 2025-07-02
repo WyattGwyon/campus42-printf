@@ -6,15 +6,19 @@
 /*   By: clouden <clouden@student.42madrid.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:22:57 by clouden           #+#    #+#             */
-/*   Updated: 2025/05/20 19:09:27 by clouden          ###   ########.fr       */
+/*   Updated: 2025/07/02 20:24:57 by clouden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
-	write(fd, &c, 1);
+	int	bytes;
+
+	bytes = 0;
+	bytes += write(fd, &c, 1);
+	return (bytes);
 }
 /*
 #include <stdio.h>
