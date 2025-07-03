@@ -6,63 +6,36 @@
 /*   By: clouden <clouden@student.42madrid.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:54:33 by clouden           #+#    #+#             */
-/*   Updated: 2025/07/02 20:27:19 by clouden          ###   ########.fr       */
+/*   Updated: 2025/07/03 12:54:50 by clouden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_putunbr_fd(unsigned int n, int fd)
-{
-	int	bytes;
-
-	bytes = 0;
-	if (n < 0)
-	{
-		bytes += ft_putchar_fd('-', fd);
-		n = n * -1;
-	}
-	if (n >= 10)
-		bytes += ft_putunbr_fd(n / 10, fd);
-	bytes += ft_putchar_fd(n % 10 + '0', fd);
-	return (bytes);
-}
-/*
-static int ft_fmthex(char *new, va_list args)
-{
-	
-}
-*/
 static int ft_mapfmt(char *new, va_list args)
 {
-	const char		*s;
-	int				c;
-	unsigned int	u;
-	int 			bytes;
+	int	bytes;
 	
 	bytes = 0;
 	if (*new == 's')
-	{
-		s = va_arg(args, const char *);
-		bytes += write(1, s, ft_strlen(s));
-	}
+		bytes += ft_putstr_fd(va_arg(args, const char *), 1);
 	if (*new == 'd' || *new == 'i')
-	{
-		c = va_arg(args, int);
-		bytes += ft_putnbr_fd(c, 1);
-	}
+		bytes += ft_putnbr_fd(va_arg(args, int), 1);
 	if (*new == 'c')
-	{
-		c = va_arg(args, int);
-		bytes += write(1, &c, 1);
-	}
+		bytes += ft_putchar_fd(va_arg(args, int), 1);
 	if (*new == 'u')
-	{
-		u = va_arg(args, unsigned int);
-		bytes += ft_putunbr_fd(u, 1);
-	}
+		bytes += ft_putunbr_fd(va_arg(args, unsigned int), 1);
 	if (*new == '%')
-		bytes += write(1,"%", 1);
+		bytes += ft_putchar_fd('%', 1);
+	if (*new == 'x')
+		bytes += ft_puthex_fd(va_arg(args, unsigned int), 1);
+	if (*new == 'X')
+		bytes += ft_putupphex_fd(va_arg(args, unsigned int), 1);
+	if (*new == 'p')
+	{
+		bytes += ft_putstr_fd("0x", 1);
+		bytes += ft_putaddrhex_fd(va_arg(args, unsigned long), 1);
+	}
 	return (bytes);
 }
 
@@ -91,7 +64,7 @@ int	ft_printf(const char *fmt, ...)
 {
 	va_list			args;
 	char			*new;
-	ssize_t				bytes;	
+	ssize_t			bytes;	
 
 	new = ft_strchr(fmt, '%');
 	va_start(args, fmt);

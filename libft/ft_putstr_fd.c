@@ -13,12 +13,13 @@
 #include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(const char *s, int fd)
 {
-	int	len;
+	int	bytes;
 
-	len = ft_strlen(s);
-	write(fd, s, len);
+	bytes = 0;
+	bytes += write(fd, s, ft_strlen(s));
+	return (bytes);
 }
 /*
 #include <stdio.h>

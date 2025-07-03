@@ -26,38 +26,54 @@ int main(void)
 	char			c		= 'A';
 	int				i		= -1;
 	unsigned int	u		= -1;
+	unsigned int	x		= 255;
+	void 			*p		= &x;
 	int				count;
 	
 
-	count = printf(   "%%s EXP: %s\n", s);
+	count = printf(   "%%s EXP: %s  ->", s);
 	printf("%d bytes were printed\n", count);
-	count = ft_printf("%%s GOT: %s\n", s);
+	count = ft_printf("%%s GOT: %s  ->", s);
 	printf("%d bytes were printed\n\n", count);
 
-	count = printf(   "%%c EXP: %c\n", c);
+	count = printf(   "%%c EXP: %c  ->", c);
 	printf("%d bytes were printed\n", count);
-	count = ft_printf("%%c GOT: %c\n", c);
+	count = ft_printf("%%c GOT: %c  ->", c);
 	printf("%d bytes were printed\n\n", count);
 
-	count = printf(   "%%d EXP: %d\n", i);
+	count = printf(   "%%d EXP: %d  ->", i);
 	printf("%d bytes were printed\n", count);
-	count = ft_printf("%%d GOT: %d\n", i);
+	count = ft_printf("%%d GOT: %d  ->", i);
 	printf("%d bytes were printed\n\n", count);
 
-	count = printf(   "%%i EXP: %i\n", i);
+	count = printf(   "%%i EXP: %i  ->", i);
 	printf("%d bytes were printed\n", count);
-	count = ft_printf("%%i GOT: %i\n", i);
+	count = ft_printf("%%i GOT: %i  ->", i);
 	printf("%d bytes were printed\n\n", count);
 
-	count = printf(   "%%u EXP: %u\n", u);
+	count = printf(   "%%u EXP: %u  ->", u);
 	printf("%d bytes were printed\n", count);
-	count = ft_printf("%%u GOT: %u\n", u);
+	count = ft_printf("%%u GOT: %u  ->", u);
 	printf("%d bytes were printed\n\n", count);
 
-	count = printf(   "%%%% EXP: %%\n");
+	count = printf(   "%%%% EXP: %%  ->");
 	printf("%d bytes were printed\n", count);
-	count = ft_printf("%%%% GOT: %%\n");
+	count = ft_printf("%%%% GOT: %%  ->");
 	printf("%d bytes were printed\n\n", count);
 
+	count = printf(   "%%x EXP: %x  ->", x);
+	printf("%d bytes were printed\n", count);
+	count = ft_printf("%%x GOT: %x  ->", x);
+	printf("%d bytes were printed\n\n", count);
+
+	count = printf(   "%%X EXP: %X  ->", x);
+	printf("%d bytes were printed\n", count);
+	count = ft_printf("%%X GOT: %X  ->", x);
+	printf("%d bytes were printed\n\n", count);
+
+	count = printf(   "%%p EXP: %p  ->", p);
+	printf("%d bytes were printed\n", count);
+	count = ft_printf("%%p GOT: %p  ->", p);
+	printf("%d bytes were printed\n", count);
 	return (0);		
 }

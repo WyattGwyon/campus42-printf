@@ -6,7 +6,7 @@
 /*   By: clouden <clouden@student.42madrid.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:55:10 by clouden           #+#    #+#             */
-/*   Updated: 2025/07/01 16:10:31 by clouden          ###   ########.fr       */
+/*   Updated: 2025/07/03 13:22:59 by clouden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdarg.h>
-# include "libft.h"
+# include "libft/libft.h"
 
 int	ft_printf(const char *fmt, ...);
+int	ft_putunbr_fd(unsigned int n, int fd);
+int	ft_putstr_fd(const char *s, int fd);
+int	ft_puthex_fd(unsigned int n, int fd);
+int	ft_putupphex_fd(unsigned int n, int fd);
+int	ft_putaddrhex_fd(unsigned long n, int fd);
 
 #endif

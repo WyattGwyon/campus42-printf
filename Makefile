@@ -13,13 +13,14 @@
 
 # Complier and flags
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g3
-
+CFLAGS	= -Wall -Wextra -Werror
+#CFLAGS += -g3
 # Name of the output static library
 NAME	= libftprintf.a
 
 # Source and object files
-SRCS	= ft_printf.c
+SRCS	= ft_printf.c\
+			ft_printf_utils.c
 OBJS	= $(SRCS:.c=.o)
 
 # Libft include
@@ -33,10 +34,10 @@ TEST_OBJ = $(TEST_SRC:.c=.o)
 TEST_BIN = test_printf
 
 # Default rule
-all: $(LIBFT) $(NAME)
+all: $(NAME)
 
 # Rule to build the library from object files
-$(NAME): $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 # Rule to compile .c to .o
@@ -57,8 +58,8 @@ clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 # Clean object files and library
-fclean:
-	rm -f $(OBJS) $(TEST_OBJ) $(NAME) $(TEST_BIN)
+fclean: clean
+	rm -f $(NAME) $(TEST_BIN)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 # Rebuild
