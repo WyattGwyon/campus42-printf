@@ -26,7 +26,7 @@ int main(void)
 	char			c		= 'A';
 	int				i		= -1;
 	unsigned int	u		= -1;
-	unsigned int	x		= 255;
+	unsigned int	x		= 3058;
 	void 			*p		= &x;
 	int				count;
 	
@@ -74,6 +74,27 @@ int main(void)
 	count = printf(   "%%p EXP: %p  ->", p);
 	printf("%d bytes were printed\n", count);
 	count = ft_printf("%%p GOT: %p  ->", p);
+	printf("%d bytes were printed\n\n", count);
+
+	count = printf(   "%%p EXP: %p  ->", NULL);
 	printf("%d bytes were printed\n", count);
+	count = ft_printf("%%p GOT: %p  ->", NULL);
+	printf("%d bytes were printed\n", count);
+
+	char	*pfmt	= "pf: Hello %s there are %d burners and %s lets go!%c\n";	
+	char	*ftpfmt	= "ftp:Hello %s there are %d burners and %s lets go!%c\n";
+	char	*args	= "Shello Minnie";
+	//char	*args	= NULL;
+	char	*args2	= "Me he quemao";
+	int		argi  	= -1;
+	char	argc	= 'A';
+	
+	printf(pfmt, args, argi, args2, argc);
+	fflush(stdout);
+	ft_printf(ftpfmt, args, argi, args2, argc);
+	
+	printf("pf:  This is a signed int as an unsigned int %u its huge\n", argi);
+	fflush(stdout);
+	ft_printf("ftpf:This is a signed int as an unsigned int %u its huge\n", argi);
 	return (0);		
 }

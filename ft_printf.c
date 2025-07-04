@@ -27,14 +27,12 @@ static int ft_mapfmt(char *new, va_list args)
 		bytes += ft_putunbr_fd(va_arg(args, unsigned int), 1);
 	if (*new == '%')
 		bytes += ft_putchar_fd('%', 1);
-	if (*new == 'x')
-		bytes += ft_puthex_fd(va_arg(args, unsigned int), 1);
-	if (*new == 'X')
-		bytes += ft_putupphex_fd(va_arg(args, unsigned int), 1);
+	if (*new == 'x' || *new == 'X')
+		bytes += ft_puthex_fd(va_arg(args, unsigned long long), 1, *new);
 	if (*new == 'p')
 	{
 		bytes += ft_putstr_fd("0x", 1);
-		bytes += ft_putaddrhex_fd(va_arg(args, unsigned long), 1);
+		bytes += ft_puthex_fd(va_arg(args, unsigned long long), 1, *new);
 	}
 	return (bytes);
 }

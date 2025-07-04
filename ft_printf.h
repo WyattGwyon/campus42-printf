@@ -21,8 +21,7 @@
 int	ft_printf(const char *fmt, ...);
 int	ft_putunbr_fd(unsigned int n, int fd);
 int	ft_putstr_fd(const char *s, int fd);
-int	ft_puthex_fd(unsigned int n, int fd);
-int	ft_putupphex_fd(unsigned int n, int fd);
-int	ft_putaddrhex_fd(unsigned long n, int fd);
+int	ft_puthex_fd(unsigned long long n, int fd, char mode);
+int	ft_putaddrhex_fd(unsigned long long n, int fd);
 
 #endif
