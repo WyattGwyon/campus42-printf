@@ -13,7 +13,7 @@
 
 # Complier and flags
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -I./include
 #CFLAGS += -g3
 # Name of the output static library
 NAME	= libftprintf.a
@@ -22,11 +22,6 @@ NAME	= libftprintf.a
 SRCS	= ft_printf.c\
 			ft_printf_utils.c
 OBJS	= $(SRCS:.c=.o)
-
-# Libft include
-LIBFT_DIR 	= libft
-LIBFT 		= $(LIBFT_DIR)/libft.a
-INCLUDES 	= -I$(LIBFT_DIR)
 
 # Test file
 TEST_SRC = .test.c
@@ -37,30 +32,24 @@ TEST_BIN = test_printf
 all: $(NAME)
 
 # Rule to build the library from object files
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 # Rule to compile .c to .o
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-# Build libft
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Optional build test
-test: $(TEST_OBJ) $(NAME) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) $^ -o $(TEST_BIN)
+test: $(TEST_OBJ) $(NAME)
+	$(CC) $(CFLAGS) $^ -o $(TEST_BIN)
 
 # Clean object files
 clean:
 	rm -f $(OBJS) $(TEST_OBJ)
-	$(MAKE) -C $(LIBFT_DIR) clean
 
-# Clean object files and library
+# Clean object files
 fclean: clean
 	rm -f $(NAME) $(TEST_BIN)
-	$(MAKE) -C $(LIBFT_DIR) fclean
 
 # Rebuild
 re: fclean all

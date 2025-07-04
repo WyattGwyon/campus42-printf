@@ -12,6 +12,25 @@
 
 #include "ft_printf.h"
 
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i ++;
+	return (i);
+}
+
+int	ft_putstr_fd(const char *s, int fd)
+{
+	int	bytes;
+
+	bytes = 0;
+	bytes += write(fd, s, ft_strlen(s));
+	return (bytes);
+}
+
 int	ft_putunbr_fd(unsigned int n, int fd)
 {
 	int	bytes;
@@ -44,28 +63,29 @@ int	ft_puthex_fd(unsigned long long n, int fd, char mode)
 }
 
 
-int	ft_putaddrhex_fd(unsigned long long n, int fd)
+int	ft_putptr_fd(void *ptr, int fd)
 {
 	int bytes;
-	int r;	
-	
-    bytes = 0;
-	if (n >= 16)
-		bytes += ft_putaddrhex_fd(n / 16, fd);
-	r = n % 16;
-	if (r == 10)
-		bytes += ft_putchar_fd('a', fd);
-	if (r == 11)
-		bytes += ft_putchar_fd('b', fd);
-	if (r == 12)
-		bytes += ft_putchar_fd('c', fd);
-	if (r == 13)
-		bytes += ft_putchar_fd('d', fd);
-	if (r == 14)
-		bytes += ft_putchar_fd('e', fd);
-	if (r == 15)
-		bytes += ft_putchar_fd('f', fd);
-	if (r < 10)
-		bytes += ft_putchar_fd(r + '0', fd);
+
+	bytes = 0;
+	if (ptr == NULL)
+	{
+		bytes += ft_putstr_fd("(nil)", fd);
+		return (bytes);
+	}
+	bytes += ft_putstr_fd("0x", fd);
+	bytes += ft_puthex_fd((uintptr_t)ptr, fd, 'x');
 	return (bytes);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != (char)c)
+	{
+		if (*s == '\0')
+			return ((char *)0);
+		else
+			s++;
+	}
+	return ((char *)s);
 }

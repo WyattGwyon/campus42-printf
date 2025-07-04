@@ -12,6 +12,36 @@
 
 #include "ft_printf.h"
 
+int	ft_putchar_fd(char c, int fd)
+{
+	int	bytes;
+
+	bytes = 0;
+	bytes += write(fd, &c, 1);
+	return (bytes);
+}
+
+int ft_putnbr_fd(int n, int fd)
+{
+	int	bytes;
+
+	bytes = 0;
+	if (n == -2147483648)
+	{
+		bytes += write(fd, "-2147483648", 11);
+		return (bytes);
+	}
+	if (n < 0)
+	{
+		bytes += ft_putchar_fd('-', fd);
+		n = n * -1;
+	}
+	if (n >= 10)
+		bytes += ft_putnbr_fd(n / 10, fd);
+	bytes += ft_putchar_fd(n % 10 + '0', fd);
+	return (bytes);
+}
+
 static int ft_mapfmt(char *new, va_list args)
 {
 	int	bytes;
@@ -31,8 +61,7 @@ static int ft_mapfmt(char *new, va_list args)
 		bytes += ft_puthex_fd(va_arg(args, unsigned long long), 1, *new);
 	if (*new == 'p')
 	{
-		bytes += ft_putstr_fd("0x", 1);
-		bytes += ft_puthex_fd(va_arg(args, unsigned long long), 1, *new);
+		bytes += ft_putptr_fd(va_arg(args, void *), 1);
 	}
 	return (bytes);
 }
@@ -65,6 +94,8 @@ int	ft_printf(const char *fmt, ...)
 	ssize_t			bytes;	
 
 	new = ft_strchr(fmt, '%');
+	if (!new)
+		return(0);
 	va_start(args, fmt);
 	write(1, fmt, new - fmt);	
 	bytes = ft_read_splits(new, args);	
