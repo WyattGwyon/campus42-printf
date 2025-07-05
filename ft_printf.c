@@ -21,7 +21,14 @@ int	ft_putchar_fd(char c, int fd)
 	return (bytes);
 }
 
-int ft_putnbr_fd(int n, int fd)
+int	ft_putstr_fd(const char *s, int fd)
+{
+	if (!s)
+		return (ft_putstr_fd("(null)", 1));
+	return (write(fd, s, ft_strlen(s)));
+}
+
+int	ft_putnbr_fd(int n, int fd)
 {
 	int	bytes;
 
@@ -42,40 +49,47 @@ int ft_putnbr_fd(int n, int fd)
 	return (bytes);
 }
 
-static int ft_mapfmt(char *new, va_list args)
+static int	ft_mapfmt(char *new, va_list args)
 {
-	int	bytes;
-	
-	bytes = 0;
+	unsigned long long	ptr;
+
 	if (*new == 's')
-		bytes += ft_putstr_fd(va_arg(args, const char *), 1);
+		return (ft_putstr_fd(va_arg(args, const char *), 1));
 	if (*new == 'd' || *new == 'i')
-		bytes += ft_putnbr_fd(va_arg(args, int), 1);
+		return (ft_putnbr_fd(va_arg(args, int), 1));
 	if (*new == 'c')
-		bytes += ft_putchar_fd(va_arg(args, int), 1);
+		return (ft_putchar_fd(va_arg(args, int), 1));
 	if (*new == 'u')
-		bytes += ft_putunbr_fd(va_arg(args, unsigned int), 1);
+		return (ft_putunbr_fd(va_arg(args, unsigned int), 1));
 	if (*new == '%')
-		bytes += ft_putchar_fd('%', 1);
+		return (ft_putchar_fd('%', 1));
 	if (*new == 'x' || *new == 'X')
-		bytes += ft_puthex_fd(va_arg(args, unsigned long long), 1, *new);
-	if (*new == 'p')
 	{
-		bytes += ft_putptr_fd(va_arg(args, void *), 1);
+		ptr = (unsigned long long)va_arg(args, unsigned int);
+		return (ft_puthex_fd(ptr, 1, *new));
 	}
-	return (bytes);
+	if (*new == 'p')
+		return (ft_putptr_fd(va_arg(args, void *), 1));
+	return (0);
 }
 
-static int ft_read_splits(char *new, va_list args)
+int	ft_printf(const char *fmt, ...)
 {
-	char	*old;
-	int		bytes;
-	
+	va_list			args;
+	char			*new;
+	char			*old;
+	ssize_t			bytes;	
+
 	bytes = 0;
+	new = ft_strchr(fmt, '%');
+	if (!new)
+		return (0);
+	va_start(args, fmt);
+	bytes += write(1, fmt, new - fmt);
 	while (new)
 	{
 		new++;
-		bytes += ft_mapfmt(new, args);	
+		bytes += ft_mapfmt(new, args);
 		new++;
 		old = new;
 		new = ft_strchr(new, '%');
@@ -84,21 +98,6 @@ static int ft_read_splits(char *new, va_list args)
 		else
 			bytes += write(1, old, ft_strlen(old));
 	}
-	return (bytes);
-}
-
-int	ft_printf(const char *fmt, ...)
-{
-	va_list			args;
-	char			*new;
-	ssize_t			bytes;	
-
-	new = ft_strchr(fmt, '%');
-	if (!new)
-		return(0);
-	va_start(args, fmt);
-	write(1, fmt, new - fmt);	
-	bytes = ft_read_splits(new, args);	
 	va_end(args);
 	return (bytes);
 }

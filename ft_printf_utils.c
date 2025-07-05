@@ -16,19 +16,12 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i] != '\0')
 		i ++;
 	return (i);
-}
-
-int	ft_putstr_fd(const char *s, int fd)
-{
-	int	bytes;
-
-	bytes = 0;
-	bytes += write(fd, s, ft_strlen(s));
-	return (bytes);
 }
 
 int	ft_putunbr_fd(unsigned int n, int fd)
@@ -44,28 +37,27 @@ int	ft_putunbr_fd(unsigned int n, int fd)
 
 int	ft_puthex_fd(unsigned long long n, int fd, char mode)
 {
-	int bytes;
-	char *x;
-	char *X;
-	int r;
+	int		bytes;
+	char	*x;
+	char	*upx;
+	int		r;
 
 	bytes = 0;
 	x = "0123456789abcdef";
-	X = "0123456789ABCDEF";
+	upx = "0123456789ABCDEF";
 	if (n >= 16)
 		bytes += ft_puthex_fd(n / 16, fd, mode);
 	r = n % 16;
 	if (mode == 'x' || mode == 'p')
-		bytes += ft_putchar_fd(x[r],fd);
+		bytes += ft_putchar_fd(x[r], fd);
 	if (mode == 'X')
-		bytes += ft_putchar_fd(X[r],fd);
+		bytes += ft_putchar_fd(upx[r], fd);
 	return (bytes);
 }
 
-
 int	ft_putptr_fd(void *ptr, int fd)
 {
-	int bytes;
+	int	bytes;
 
 	bytes = 0;
 	if (ptr == NULL)

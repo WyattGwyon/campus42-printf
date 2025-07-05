@@ -14,7 +14,7 @@
 # Complier and flags
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -I./include
-#CFLAGS += -g3
+CFLAGS += -g3
 # Name of the output static library
 NAME	= libftprintf.a
 

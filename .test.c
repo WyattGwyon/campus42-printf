@@ -1,28 +1,11 @@
-
+#include <stdio.h>
 #include "ft_printf.h"
-/*
+#include <limits.h>
+
+
 int main(void)
 {
-	char	*pfmt	= "pf: Hello %s there are %d burners and %s lets go!%c\n";	
-	char	*ftpfmt	= "ftp:Hello %s there are %d burners and %s lets go!%c\n";
-	char	*args	= "Shello Minnie";
-	char	*args2	= "Me he quemao";
-	int		argi  	= -1;
-	char	argc	= 'A';
-	
-	printf(pfmt, args, argi, args2, argc);
-	fflush(stdout);
-	ft_printf(ftpfmt, args, argi, args2, argc);
-	
-	printf("pf:  This is a signed int as an unsigned int %u its huge\n", argi);
-	fflush(stdout);
-	ft_printf("ftpf:This is a signed int as an unsigned int %u its huge\n", argi);
-	return (0);
-}	
-*/
-int main(void)
-{
-	char			*s		= "Shello Minnie";
+    char			*s		= "Shello Minnie";
 	char			c		= 'A';
 	int				i		= -1;
 	unsigned int	u		= -1;
@@ -30,6 +13,7 @@ int main(void)
 	void 			*p		= &x;
 	int				count;
 	
+    printf("size of pointer: %lu\n", sizeof(uintptr_t));
 
 	count = printf(   "%%s EXP: %s  ->", s);
 	printf("%d bytes were printed\n", count);
@@ -96,5 +80,41 @@ int main(void)
 	printf("pf:  This is a signed int as an unsigned int %u its huge\n", argi);
 	fflush(stdout);
 	ft_printf("ftpf:This is a signed int as an unsigned int %u its huge\n", argi);
-	return (0);		
+
+    count = 0;
+    count = ft_printf("ft %c ", '0');
+    printf(           "bytes: %d\n", count);
+    count = printf(   "pf %c ", '0');
+    printf(           "bytes: %d\n\n", count);
+    
+    count = printf(   "pt %s %s %s %s %s ", " - ", "", "4", "", "2 ");
+    printf(           "bytes: %d\n", count);
+    count = ft_printf("ft %s %s %s %s %s ", " - ", "", "4", "", "2 ");
+    printf(           "bytes: %d\n\n", count);
+
+    char *var = NULL;
+	count = printf(   "pt NULL %s NULL ", var);
+    printf(           "bytes: %d\n", count);
+    count = ft_printf("ft NULL %s NULL ", var);
+    printf(           "bytes: %d\n\n", count);
+
+    count = printf("pf %c bytes: %d\n", '0' - 256, count);
+    ft_printf("ft %c\n\n", '0' - 256);
+    
+    printf("pf %c %c %c \n", '0', 0, '1');
+    ft_printf("ft %c %c %c \n\n", '0', 0, '1');
+    
+    printf("pf %c %c %c \n", ' ', ' ', ' ');
+    ft_printf("ft %c %c %c \n\n", ' ', ' ', ' ');
+    
+    printf("pf %c %c %c \n", '1', '2', '3');
+    ft_printf("ft %c %c %c \n\n", '1', '2', '3');
+    
+    printf("pf %c %c %c \n", '2', '1', 0);
+    ft_printf("ft %c %c %c \n\n", '2', '1', 0);
+    
+    printf("pf %c %c %c \n", 0, '1', '2');
+    ft_printf("ft %c %c %c \n\n", 0, '1', '2');
+
+    return (0);
 }
