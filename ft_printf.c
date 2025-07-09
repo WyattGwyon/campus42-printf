@@ -83,7 +83,7 @@ int	ft_printf(const char *fmt, ...)
 	bytes = 0;
 	new = ft_strchr(fmt, '%');
 	if (!new)
-		return (0);
+		return (write(1, fmt, ft_strlen(fmt)));
 	va_start(args, fmt);
 	bytes += write(1, fmt, new - fmt);
 	while (new)
