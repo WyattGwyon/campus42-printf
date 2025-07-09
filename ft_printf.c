@@ -80,24 +80,20 @@ int	ft_printf(const char *fmt, ...)
 	char			*old;
 	ssize_t			bytes;	
 
-	bytes = 0;
 	new = ft_strchr(fmt, '%');
 	if (!new)
-		return (write(1, fmt, ft_strlen(fmt)));
+		return (va_end(args), write(1, fmt, ft_strlen(fmt)));
 	va_start(args, fmt);
-	bytes += write(1, fmt, new - fmt);
+	bytes = write(1, fmt, new - fmt);
 	while (new)
 	{
-		new++;
-		bytes += ft_mapfmt(new, args);
-		new++;
-		old = new;
+		bytes += ft_mapfmt(++new, args);
+		old = ++new;
 		new = ft_strchr(new, '%');
 		if (new)
 			bytes += write(1, old, new - old);
 		else
 			bytes += write(1, old, ft_strlen(old));
 	}
-	va_end(args);
-	return (bytes);
+	return (va_end(args), bytes);
 }

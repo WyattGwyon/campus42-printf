@@ -122,6 +122,9 @@ int main(void)
 	// printf("%d bytes were printed\n", count);
 	count = ft_printf(" GOTk: %k ->%k");
 	printf("%d bytes were printed\n\n", count);
-
+	
+	count = ft_printf(" GOT%%:  ->%");
+	printf("%d bytes were printed\n\n", count);
+	
     return (0);
 }
