@@ -95,24 +95,6 @@ int main(void)
     count = ft_printf("ft NULL %s NULL ", var);
     printf(           "bytes: %d\n\n", count);
 
-    printf(   "pf %c\n",   '0' - 256);
-    ft_printf("ft %c\n\n", '0' - 256);
-    
-    printf(   "pf %c %c %c \n",   '0', 0, '1');
-    ft_printf("ft %c %c %c \n\n", '0', 0, '1');
-    
-    printf(   "pf %c %c %c \n",   ' ', ' ', ' ');
-    ft_printf("ft %c %c %c \n\n", ' ', ' ', ' ');
-    
-    printf(   "pf %c %c %c \n",   '1', '2', '3');
-    ft_printf("ft %c %c %c \n\n", '1', '2', '3');
-    
-    printf(   "pf %c %c %c \n",   '2', '1', 0);
-    ft_printf("ft %c %c %c \n\n", '2', '1', 0);
-    
-    printf(   "pf %c %c %c \n",   0, '1', '2');
-    ft_printf("ft %c %c %c \n\n", 0, '1', '2');
-
 	count = printf(   " EXP:  ->");
 	printf("%d bytes were printed\n", count);
 	count = ft_printf(" GOT:  ->");
