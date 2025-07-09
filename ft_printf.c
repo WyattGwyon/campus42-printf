@@ -70,7 +70,7 @@ static int	ft_mapfmt(char *new, va_list args)
 	}
 	if (*new == 'p')
 		return (ft_putptr_fd(va_arg(args, void *), 1));
-	return (0);
+	return (ft_putchar_fd(*new, 1));
 }
 
 int	ft_printf(const char *fmt, ...)
@@ -87,6 +87,8 @@ int	ft_printf(const char *fmt, ...)
 	bytes = write(1, fmt, new - fmt);
 	while (new)
 	{
+		if (new[1] == '\0')
+			return (va_end(args), bytes + write(1, new, 1));
 		bytes += ft_mapfmt(++new, args);
 		old = ++new;
 		new = ft_strchr(new, '%');
